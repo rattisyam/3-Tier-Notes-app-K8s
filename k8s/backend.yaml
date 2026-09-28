@@ -35,7 +35,7 @@ spec:
       
       containers:
         - name: backend
-          image: rattisya/notes-backend:latest
+          image: rattisyam/three-tier-backend:1.0.0
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
