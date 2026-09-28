@@ -13,10 +13,11 @@ RUN npm install --production=false
 COPY public ./public
 COPY src ./src
 
-# Build application
+#build the application
 RUN npm run build
 
-# Production stage
+
+#production runtime stage
 FROM nginx:alpine
 
 # Copy custom nginx config
@@ -26,7 +27,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Create non-root user
-RUN addgroup -g 1001 -S appgroup && \
+RUN addgroup -g 1001 -S appgroup && \   
     adduser -S -u 1001 -G appgroup appuser && \
     chown -R appuser:appgroup /usr/share/nginx/html && \
     chown -R appuser:appgroup /var/cache/nginx && \

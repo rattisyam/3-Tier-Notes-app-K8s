@@ -6,31 +6,37 @@ metadata:
   labels:
     app: frontend
     tier: presentation
+
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: frontend
+      labels:
+        app: frontend
+        tier: presentation
   template:
     metadata:
       labels:
         app: frontend
         tier: presentation
+    
     spec:
       containers:
-      - name: frontend
-        image: yeshank/three-tier-frontend:1.0.0
+      - naame: frontend
+        image: rattisyam/three-tier-frontend:1.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 80
           name: http
           protocol: TCP
+
         env:
         - name: REACT_APP_API_URL
           valueFrom:
             configMapKeyRef:
               name: app-config
               key: REACT_APP_API_URL
+
         resources:
           requests:
             memory: "128Mi"
@@ -54,12 +60,15 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 3
           failureThreshold: 3
+
+
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
   namespace: three-tier-app
+  name: frontend-service
   labels:
     app: frontend
     tier: presentation
@@ -71,6 +80,13 @@ spec:
     targetPort: 80
     protocol: TCP
     name: http
-  type: LoadBalancer
+  type: ClusterIP
+
   # For cloud providers (AWS/GCP/Azure), this will provision a load balancer
   # For local development (Minikube/Kind), use NodePort or port-forward instead
+  
+    
+
+
+        
+      

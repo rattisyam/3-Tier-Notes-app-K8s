@@ -1,8 +1,8 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: persistentVolumeClaim
 metadata:
   name: postgres-pvc
-  namespace: three-tier-app
+  namespace: notes-app
 spec:
   accessModes:
     - ReadWriteOnce
@@ -10,5 +10,3 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: standard
-  # Note: Change 'standard' to your cluster's storage class
-  # To see available storage classes: kubectl get storageclass

@@ -3,8 +3,10 @@ kind: ConfigMap
 metadata:
   name: app-config
   namespace: three-tier-app
+
 data:
   DB_HOST: "postgres-service"
   DB_PORT: "5432"
   DB_NAME: "threetierdb"
   REACT_APP_API_URL: "http://backend-service:8080/api/items"
+

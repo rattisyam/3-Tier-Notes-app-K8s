@@ -6,18 +6,12 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    # For production with SSL:
-    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  
 spec:
   ingressClassName: nginx
-  # For production with SSL, uncomment:
-  # tls:
-  # - hosts:
-  #   - your-domain.com
-  #   secretName: app-tls-cert
+
   rules:
-  - host: three-tier-app.local  # Change to your domain
+  - host: three-tier-app.local
     http:
       paths:
       - path: /
@@ -34,3 +28,4 @@ spec:
             name: backend-service
             port:
               number: 8080
+
