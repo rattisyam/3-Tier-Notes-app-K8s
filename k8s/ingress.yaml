@@ -4,9 +4,8 @@ metadata:
   name: app-ingress
   namespace: three-tier-app
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  
+
 spec:
   ingressClassName: nginx
 
@@ -21,11 +20,3 @@ spec:
             name: frontend-service
             port:
               number: 80
-      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-service
-            port:
-              number: 8080
-

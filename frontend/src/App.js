@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/items';
+const API_URL = process.env.REACT_APP_API_URL || '/api/items';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -31,7 +31,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!name.trim()) {
       setError('Name is required');
       return;
@@ -48,7 +48,7 @@ function App() {
       });
 
       if (!response.ok) throw new Error('Failed to create item');
-      
+
       setName('');
       setDescription('');
       setError('');
@@ -68,7 +68,7 @@ function App() {
       });
 
       if (!response.ok) throw new Error('Failed to delete item');
-      
+
       setError('');
       fetchItems();
     } catch (err) {

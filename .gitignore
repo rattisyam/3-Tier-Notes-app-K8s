@@ -43,7 +43,7 @@ mvnw.cmd
 .dockerignore
 
 # Kubernetes secrets (if any)
-#k8s/secret.yaml
+k8s/secret.yaml
 
 # Temporary files
 *.tmp

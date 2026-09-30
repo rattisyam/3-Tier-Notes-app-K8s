@@ -11,24 +11,38 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      labels:
-        app: frontend
-        tier: presentation
+      app: frontend
+      tier: presentation
   template:
     metadata:
       labels:
         app: frontend
         tier: presentation
-    
+
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
-      - naame: frontend
-        image: rattisyam/three-tier-frontend:1.0.0
+      - name: frontend
+        image: rattisyam/three-tier-frontend:1.0.2
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8090
           name: http
           protocol: TCP
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+            add:
+              - NET_BIND_SERVICE
 
         env:
         - name: REACT_APP_API_URL
@@ -47,7 +61,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8090
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 5
@@ -55,7 +69,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8090
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
@@ -77,16 +91,10 @@ spec:
     app: frontend
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8090
     protocol: TCP
     name: http
   type: ClusterIP
 
   # For cloud providers (AWS/GCP/Azure), this will provision a load balancer
   # For local development (Minikube/Kind), use NodePort or port-forward instead
-  
-    
-
-
-        
-      
