@@ -31,7 +31,7 @@ spec:
           echo "PostgreSQL is ready!"
       containers:
       - name: backend
-        image: yeshank/three-tier-backend:1.0.0
+        image: rattisyam/three-tier-backend:1.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
